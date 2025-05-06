@@ -32,7 +32,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(5px);
             color: #FFFFFF;
             flex-wrap: wrap;
@@ -261,51 +260,246 @@
         }
 
         /* Popup Erro de Milhão */
-        #milhao-erro-popup {
-            display: none;
-            position: fixed;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #FFFFFF;
-            background-color: #0000FF;
-            padding: 10px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 999;
-            animation: fadeIn 0.5s ease-out;
-        }
+        .popup-window {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    width: 320px;
+    background-color: #f0f0f0;
+    border: 2px solid #000;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+    z-index: 1001;
+    animation: fadeIn 0.3s ease-out;
+}
 
-        /* Animação de fade-in para o popup de erro */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -60%);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, -60%);
-            }
-        }
+/* Centralizando o conteúdo no popup */
+#milhao-erro-popup .popup-content {
+    align-items: center;
+    text-align: center;
+    padding: 30px 30px 20px 30px;
+}
 
-        /* Botão "Ok" no popup de erro */
-        #btnErroOk {
-            background-color: #FFFFFF;
-            color: #FFFFFF;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.popup-header {
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        #btnErroOk:hover {
-            background-color: #0000FF;
-            color: #FFFFFF;
-            transition: 0.3s;
-        }
+.popup-title {
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.popup-body {
+    padding: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.popup-footer {
+    padding: 10px;
+    text-align: center;
+    background-color: #e0e0e0;
+}
+
+.popup-footer button {
+    padding: 5px 15px;
+    border: 1px solid #1E90FF;
+    color: #1E90FF;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Hover do botão "Ok" */
+.popup-footer button:hover {
+    background-color: #1E90FF;
+    color: #FFFFFF;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -30%);
+    }
+}
+
+#btnErroOk {
+    margin-top: 0;
+    padding: 8px 20px;
+    color: #1E90FF;
+    border: 2px solid #1E90FF;
+    border-radius: 5px;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 0;
+}
+
+#btnErroOk:hover {
+    background-color: #1E90FF;
+    color: #FFFFFF;
+}
+
+/* Cabeçalho da Página */
+.comentarios-heading {
+  text-align: center;
+  margin-top: 10px; /* Aproxima o heading do header */
+}
+
+.comentarios-heading h1 {
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 3.5rem;
+  margin: 0;
+}
+
+.comentarios-heading p {
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-top: 5px;
+}
+
+/* Tarjeta */
+.tarjeta {
+  display: flex;
+  width: 320px;
+  height: 57px;
+  background-color: #000080; /* azul-aeronáutica */
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.tarjeta-esquerda {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.milhao {
+  color: #FFFFFF;
+  font-size: 22px;
+}
+
+.tarjeta-label,
+.tarjeta-milhao {
+  line-height: 1.2;
+}
+
+.tarjeta-direita {
+  width: 66.67%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.tarjeta-nome {
+  text-align: center;
+}
+
+/* Geleria de Comentários */
+#comentarios-galeria {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.comentario-miniatura-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.comentario-miniatura {
+  background-color: #000080;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  width: 250px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.popup-comentario {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 70%;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  z-index: 1002;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.popup-header-expandido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: #333;
+}
+
+#fechar-expandido, #fechar-adicionar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #4682B4;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-body-expandido {
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+#tarjeta-expandida {
+  margin-bottom: 20px;
+}
+
+.popup-navegacao {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-navegacao button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #4682B4;
+  cursor: pointer;
+}
+
+#contador-comentarios {
+  text-align: right;
+  font-size: 1.2rem;
+  padding-top: 10px;
+  color: #333;
+}
+
     </style>
 </head>
 <body>
@@ -389,12 +583,76 @@
   </div>
 
   <!-- Popup de Erro de Milhão -->
-   <div id="milhao-erro-popup" style="display: none;">
-  <div class="popup-content" style="background-color: #0000FF; color: #FFFFFF; text-align: center;">
-    <h3>Milhão Incorreto!</h3>
-    <button id="btnErroOk" style="margin-top: 1rem; padding: 0.5rem 1rem; background-color: #FFFFFF; color: #0000FF; border: none; border-radius: 5px; cursor: pointer;">Ok</button>
+  <div id="milhao-erro-popup" class="popup-window" style="display: none;">
+    <div class="popup-header">
+      <span class="popup-title">Erro</span>
+    </div>
+    <div class="popup-body">
+      <p>Milhão Incorreto!</p>
+    </div>
+    <div class="popup-footer">
+        <button id="btnErroOk" onclick="fecharPopupErro()">Ok</button>
+    </div>
   </div>
-</div>
+
+  <!-- Cabeçalho da Página-->
+  <section class="comentarios-heading">
+    <h1>Galeria de Comentários</h1>
+    <p>Leia e compartilhe memórias marcantes.</p>
+  </section>
+
+  <!-- Tarjeta -->
+  <div class="tarjeta">
+    <div class="tarjeta-esquerda">
+      <div class="tarjeta-label">ALUNO</div>
+      <div class="tarjeta-milhao">91-1234</div>
+    </div>
+    <div class="tarjeta-direita">
+      <div class="tarjeta-nome">KATZEINNSTEINN</div>
+    </div>
+  </div>
+
+  <!-- Galeria de Comentários -->
+<section id="comentarios-galeria">
+    <div class="comentario-miniatura-container" id="comentarios-container">
+      <!-- Miniaturas geradas por JS -->
+    </div>
+  
+    <!-- Popup Comentário Expandido -->
+    <div id="popup-comentario-expandido" class="popup-comentario" style="display: none;">
+      <div class="popup-header-expandido">
+        <span id="data-hora-comentario"></span>
+        <button id="fechar-expandido"> </button>
+      </div>
+      <div class="popup-body-expandido">
+        <div id="tarjeta-expandida" class="tarjeta"></div>
+        <p id="comentario-completo"></p>
+      </div>
+      <div class="popup-navegacao">
+        <button id="comentario-anterior">&#x276E;</button>
+        <button id="comentario-proximo">&#x276F;</button>
+      </div>
+      <div id="contador-comentarios"></div>
+    </div>
+  
+    <!-- Popup Adicionar Comentário -->
+    <div id="popup-adicionar-comentario" class="popup-comentario" style="display: none;">
+      <div class="popup-header-expandido">
+        <h3>Adicionar Comentário</h3>
+        <button id="fechar-adicionar"> </button>
+      </div>
+      <div class="popup-body-expandido">
+        <label>Milhão: <input type="text" id="milhao-input" maxlength="4"></label><br>
+        <label>Nome de Guerra: <input type="text" id="nome-guerra-input"></label><br>
+        <label>Comentário:<br><textarea id="comentario-texto-input" rows="5" style="width:100%;"></textarea></label><br>
+      </div>
+      <div style="text-align:right;">
+        <button id="enviar-comentario" style="padding: 8px 16px; background-color:#000080; color:white; border:none; border-radius:5px; cursor:pointer;">Enviar</button>
+      </div>
+    </div>
+  </section>
+  
+  
       
       <!-- Javascript -->
     <script>
@@ -467,6 +725,101 @@ btnComente.addEventListener("click", () => {
     popupComentario.style.display = "flex";
     resetForm();
 });
+
+function abrirPopupErro() {
+    document.getElementById('milhao-erro-popup').style.display = 'block';
+}
+
+function fecharPopupErro() {
+    document.getElementById('milhao-erro-popup').style.display = 'none';
+    document.getElementById('comment-popup').style.display = 'none';
+}
+
+// Galeria de Comentários
+let comentarios = [];
+
+function gerarTarjeta(milhao, nomeGuerra, id) {
+  return `
+    <div class="tarjeta" id="tarjeta-${id}" style="display:flex;width:290px;height:45px;background-color:#000080;color:#fff;border-radius:5px;overflow:hidden">
+      <div style="width:30%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2px">
+        <div style="font-size:14px;font-weight:bold">ALUNO</div>
+        <div class="milhao" style="font-size:14px">91-${milhao}</div>
+      </div>
+      <div style="width:70%;display:flex;align-items:center;padding-left:10px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+        ${nomeGuerra}
+      </div>
+    </div>`;
+}
+
+function adicionarComentario(milhao, nomeGuerra, texto) {
+  const data = new Date();
+  const id = comentarios.length;
+  const primeirasPalavras = texto.split(" ").slice(0, 10).join(" ");
+
+  comentarios.push({ milhao, nomeGuerra, texto, data });
+
+  const tarjetaHTML = gerarTarjeta(milhao, nomeGuerra, id);
+  const miniatura = document.createElement("div");
+  miniatura.className = "comentario-miniatura";
+  miniatura.innerHTML = `${tarjetaHTML}<p>${primeirasPalavras}...</p>`;
+  miniatura.onclick = () => abrirComentarioExpandido(id);
+
+  document.getElementById("comentarios-container").appendChild(miniatura);
+}
+
+function abrirComentarioExpandido(index) {
+  const comentario = comentarios[index];
+  document.getElementById("data-hora-comentario").textContent = `Comentário feito em ${comentario.data.toLocaleDateString()} às ${comentario.data.toLocaleTimeString()}`;
+  document.getElementById("tarjeta-expandida").innerHTML = gerarTarjeta(comentario.milhao, comentario.nomeGuerra, `expandido-${index}`);
+  document.getElementById("comentario-completo").textContent = comentario.texto;
+  document.getElementById("contador-comentarios").textContent = `${index + 1} de ${comentarios.length}`;
+
+  document.getElementById("popup-comentario-expandido").style.display = "block";
+
+  document.getElementById("comentario-anterior").onclick = () => {
+    if (index > 0) abrirComentarioExpandido(index - 1);
+  };
+  document.getElementById("comentario-proximo").onclick = () => {
+    if (index < comentarios.length - 1) abrirComentarioExpandido(index + 1);
+  };
+}
+
+document.getElementById("fechar-expandido").onclick = () => {
+  document.getElementById("popup-comentario-expandido").style.display = "none";
+};
+
+document.getElementById("fechar-adicionar").onclick = () => {
+  document.getElementById("popup-adicionar-comentario").style.display = "none";
+};
+
+// Corrigido para funcionar com o botão "open-comment"
+document.getElementById("open-comment").onclick = () => {
+  document.getElementById("popup-adicionar-comentario").style.display = "block";
+};
+
+document.getElementById("enviar-comentario").onclick = () => {
+  const milhao = document.getElementById("milhao-input").value.trim();
+  const nomeGuerra = document.getElementById("nome-guerra-input").value.trim();
+  const texto = document.getElementById("comentario-texto-input").value.trim();
+
+  const milhaoNum = parseInt(milhao, 10);
+  if (!/^[0-9]{4}$/.test(milhao) || milhaoNum < 1001 || milhaoNum > 1492) {
+    alert("Milhão inválido. Digite um número de 4 dígitos entre 1001 e 1492.");
+    return;
+  }
+  if (!nomeGuerra || !texto) {
+    alert("Preencha todos os campos.");
+    return;
+  }
+
+  adicionarComentario(milhao, nomeGuerra, texto);
+  document.getElementById("popup-adicionar-comentario").style.display = "none";
+
+  document.getElementById("milhao-input").value = "";
+  document.getElementById("nome-guerra-input").value = "";
+  document.getElementById("comentario-texto-input").value = "";
+};
+
     </script>
 </body>
 </html>
