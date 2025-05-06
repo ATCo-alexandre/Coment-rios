@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./imagens/1_favicon.png" type="image/x-icon">
+    <title>Azul 91 - Comentários</title>
+    <!-- ìcones Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('./imagens/8_nomeTurma.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #0000CD;
+        }
+        
+        /* Header */
+        .topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            color: #FFFFFF;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .menu-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu-nav a {
+            text-align: center;
+            color: white;
+            text-decoration: none;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .menu-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+            color: #1E90FF;
+            animation: neon-blink 2s infinite;
+        }
+
+        .menu-item:hover {
+            color: #00f7ff;
+            animation: pulse 1s infinite alternate;
+        }
+
+        .menu-bars {
+            font-size: 1.8rem;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: color 0.3s;
+        }
+
+        .menu-bars:hover {
+            color: #00f7ff;
+            text-shadow: 0 0 8px #00f7ff, 0 0 16px #00f7ff;
+            animation: pulse 1s infinite alternate;
+        }
+
+        .btn-comente {
+            background-color: #0000FF;
+            color: #FFFFFF;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        .btn-comente:hover {
+            color: #00f7ff;
+            background-color: #000080;
+            box-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                text-shadow: 0 0 5px #00f7ff;
+                box-shadow: 0 0 5px #00f7ff;
+            }
+            to {
+                text-shadow: 0 0 15px #00f7ff;
+                box-shadow: 0 0 20px #00f7ff;
+            }
+        }
+
+        @keyframes neon-blink {
+            0%, 100% {
+                text-shadow: 0 0 5px #1E90FF, 0 0 10px #1E90FF;
+            }
+            50% {
+                text-shadow: 0 0 2px #1E90FF, 0 0 4px #1E90FF;
+            }
+        }
+
+        /* Header - Menu Dropdown */
+        .menu-dropdown-container {
+            position: relative;
+        }
+
+        .menu-bars {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .dropdown-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #191970;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #00000088;
+            z-index: 10;
+        }
+
+        .dropdown-item {
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dropdown-item i {
+            color: #1E90FF;
+            font-size: 1.2rem;
+        }
+
+        /* Botão Comente */
+        /* Overlay do popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        /* Conteúdo do popup */
+        .popup-content {
+            position: relative;
+            background-color: #0000FF;
+            color: #FFFFFF;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .popup-content h2 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .popup-content label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .popup-content input,
+        .popup-content select,
+        .popup-content textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.3rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* Estilo do campo Milhão com prefixo */
+        .milhao-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .milhao-wrapper input {
+            width: 60px;
+        }
+
+        .prefixo {
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* Botões Enviar e Cancelar */
+        .form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-buttons button {
+            background-color: #FFFFFF;
+            color: #0000FF;
+            font-weight: bold;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Popup Erro de Milhão */
+        #milhao-erro-popup {
+            display: none;
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFFFFF;
+            background-color: #0000FF;
+            padding: 10px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Animação de fade-in para o popup de erro */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -60%);
+            }
+        }
+
+        /* Botão "Ok" no popup de erro */
+        #btnErroOk {
+            background-color: #FFFFFF;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #btnErroOk:hover {
+            background-color: #0000FF;
+            color: #FFFFFF;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <header class="topo">
+        <img src="./imagens/2_logo.gif" alt="Logo da Turma" class="logo">
+      
+        <nav class="menu-nav">
+          <a href="index.html" class="menu-item">
+            <i class="fa-solid fa-home"></i>
+            <span>Home</span>
+          </a>
+          <a href="sobre.html" class="menu-item">
+            <i class="fa-solid fa-users"></i>
+            <span>Sobre</span>
+          </a>
+          <a href="fotos.html" class="menu-item">
+            <i class="fa-solid fa-camera"></i>
+            <span>Fotos</span>
+          </a>
+          <a href="homenagens.html" class="menu-item">
+            <i class="fa-solid fa-dove"></i>
+            <span>Homenagens</span>
+          </a>
+        </nav>           
+
+        <!-- Menu Dropdown -->
+        <div class="menu-dropdown-container">
+            <i class="fa-solid fa-bars menu-bars" id="menu-toggle"></i>      
+            <div class="dropdown-menu" id="dropdown-menu">
+              <a href="#" class="dropdown-item"><i class="fa-solid fa-home"></i> Home</a>
+              <a href="#" class="dropdown-item"><i class="fa-solid fa-users"></i> Sobre</a>
+              <a href="#" class="dropdown-item"><i class="fa-solid fa-camera"></i> Fotos</a>
+              <a href="#" class="dropdown-item"><i class="fa-solid fa-dove"></i> Homenagens</a>
+            </div>
+        </div>
+
+        <!-- Botão de Comentário -->
+        <button class="btn-comente" id="open-comment">Comente</button>
+      </header>
+
+       <!-- Popup de Comentário -->
+  <div class="popup-overlay" id="comment-popup">
+    <div class="popup-content">
+      <h2>Adicionar Comentário</h2>
+      <span class="popup-close"><i class="fa-solid fa-xmark"></i></span>
+      <form id="form-comentario">
+        <!-- Milhão -->
+        <label for="milhao">Milhão:</label>
+        <div class="milhao-wrapper">
+          <span class="prefixo">91-</span>
+          <input type="text" id="milhao" name="milhao" maxlength="4" pattern="[0-9]{4}" required>
+        </div>
+
+        <!-- Nome de Guerra -->
+        <label for="nome">Nome de Guerra:</label>
+        <input type="text" id="nome" name="nome" maxlength="30" required>
+
+        <!-- Esquadrilha -->
+        <label for="esquadrilha">Esquadrilha:</label>
+        <select id="esquadrilha" name="esquadrilha" required>
+          <option value="">Selecione</option>
+          <option value="7ª Esquadrilha">7ª Esquadrilha</option>
+          <option value="8ª Esquadrilha">8ª Esquadrilha</option>
+          <option value="9ª Esquadrilha">9ª Esquadrilha</option>
+          <option value="10ª Esquadrilha">10ª Esquadrilha</option>
+          <option value="11ª Esquadrilha">11ª Esquadrilha</option>
+          <option value="12ª Esquadrilha">12ª Esquadrilha</option>
+        </select>
+
+        <!-- Comentário -->
+        <label for="comentario">Comentário:</label>
+        <textarea id="comentario" name="comentario" rows="6" maxlength="1000" required></textarea>
+
+        <!-- Botões -->
+        <div class="form-buttons">
+          <button type="submit">Enviar</button>
+          <button type="button" id="cancelar">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Popup de Erro de Milhão -->
+   <div id="milhao-erro-popup" style="display: none;">
+  <div class="popup-content" style="background-color: #0000FF; color: #FFFFFF; text-align: center;">
+    <h3>Milhão Incorreto!</h3>
+    <button id="btnErroOk" style="margin-top: 1rem; padding: 0.5rem 1rem; background-color: #FFFFFF; color: #0000FF; border: none; border-radius: 5px; cursor: pointer;">Ok</button>
+  </div>
+</div>
+      
+      <!-- Javascript -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+    const menu = document.getElementById('dropdown-menu');
+    const icon = this;
+
+    if (menu.style.display === 'flex') {
+        menu.style.display = 'none';
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+    } else {
+        menu.style.display = 'flex';
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-xmark');
+    }
+});
+
+// Botão Comente
+const openBtn = document.getElementById('open-comment');
+const popup = document.getElementById('comment-popup');
+const cancelarBtn = document.getElementById('cancelar');
+
+openBtn.addEventListener('click', () => {
+    popup.style.display = 'flex';
+    resetForm();
+});
+
+cancelarBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
+document.querySelector('.popup-close').addEventListener('click', () => {
+    document.querySelector('.popup-overlay').style.display = 'none';
+});
+
+// Formulário de Comentários
+const milhaoInput = document.getElementById("milhao");
+const popupComentario = document.getElementById("comment-popup");
+const popupErro = document.getElementById("milhao-erro-popup");
+const btnErroOk = document.getElementById("btnErroOk");
+const formComentario = document.getElementById("form-comentario");
+const btnComente = document.getElementById("btn-comente");
+
+// Validação do campo Milhão ao sair do input
+milhaoInput.addEventListener("blur", () => {
+    const valor = milhaoInput.value.trim();
+
+    // Verifica se são 4 dígitos e entre 1001 e 1492
+    if (!/^\d{4}$/.test(valor) || Number(valor) < 1001 || Number(valor) > 1492) {
+        popupErro.style.display = "flex";
+    }
+});
+
+// Ao clicar em "Ok" no popup de erro
+btnErroOk.addEventListener("click", () => {
+    popupErro.style.display = "none";
+    popupComentario.style.display = "none";
+    resetForm();
+});
+
+// Função para limpar o formulário
+function resetForm() {
+    formComentario.reset();
+    milhaoInput.value = "";
+}
+
+// Ao abrir o popup de comentário, limpar o formulário
+btnComente.addEventListener("click", () => {
+    popupComentario.style.display = "flex";
+    resetForm();
+});
+    </script>
+</body>
+</html>
